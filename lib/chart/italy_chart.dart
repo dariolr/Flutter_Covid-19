@@ -15,17 +15,10 @@ class ItalyStatsPieChart extends StatefulWidget {
 class _ItalyStatsPieChart extends State<ItalyStatsPieChart> {
 
   int touchedIndex;
-  Percent1M perc;
-
-  @override
-  void initState() {
-    super.initState();
-    perc = new Percent1M(widget.stats);
-  }
 
   @override
   Widget build(BuildContext context) {
-
+    Percent1M perc = Percent1M(widget.stats);
     List<Widget> widgets = [
       ChartLabel(
         color: SingleIntReportView.colors[0],
