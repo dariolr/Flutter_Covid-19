@@ -79,6 +79,7 @@ Future<List<Country>> getCountries() async {
         result.insert(0, allCountry);
       }
     }
+    result.sort((a, b) => b.cases.compareTo(a.cases));
   } catch (e) {
     print(
         "\n>>>>>>GET COUNTRIES ERROR>>>>>>>\n$e\n<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
