@@ -9,7 +9,7 @@ import 'package:http/http.dart';
 import 'package:intl/intl.dart';
 
 //
-final String novelCovid = "https://corona.lmao.ninja/";
+//final String novelCovid = "https://corona.lmao.ninja/";
 final String novelCovidV2 = "https://corona.lmao.ninja/v2/";
 final String dpc =
     "https://raw.githubusercontent.com/pcm-dpc/COVID-19/master/dati-json/";
@@ -53,7 +53,7 @@ Future<List<Nazionale>> getRegionaleLatest() async {
 Future<List<Country>> getCountries() async {
   List<Country> result = [];
   try {
-    Response response = await get(novelCovid + "countries");
+    Response response = await get(novelCovidV2 + "countries");
     List data = jsonDecode(response.body);
     result = data.map((i) => Country.fromJson(i)).toList();
     if (result.length > 1) {
@@ -91,7 +91,7 @@ Future<List<Country>> getCountries() async {
 Future<List<States>> getStates() async {
   List<States> result = [];
   try {
-    Response response = await get(novelCovid + "states");
+    Response response = await get(novelCovidV2 + "states");
     List data = jsonDecode(response.body);
     result = data.map((i) => States.fromJson(i)).toList();
     if (result.length > 1) {
