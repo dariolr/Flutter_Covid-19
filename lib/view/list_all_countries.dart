@@ -107,7 +107,7 @@ class _ListCountryViewState extends State<ListCountryView>
                           leading = Image.asset(
                             "assets/" +
                                 _newcountries[index].countryInfo.flag.split(
-                                    "https://raw.githubusercontent.com/NovelCOVID/API/master/assets/flags/")[1],
+                                    "https://corona.lmao.ninja/assets/img/flags/")[1],
                             height: 24,
                           );
                         }
