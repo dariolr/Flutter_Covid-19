@@ -20,7 +20,7 @@ class ListCountryView extends StatefulWidget {
 
 class _ListCountryViewState extends State<ListCountryView>
     with TickerProviderStateMixin {
-  List<Country> countries, _newcountries;
+  List<Country> _allCountries, _countries;
   final GlobalKey _refreshIndicatorKey = GlobalKey();
 
   @override
@@ -34,18 +34,18 @@ class _ListCountryViewState extends State<ListCountryView>
 
   Future<void> _getCountries() async {
     setState(() {
-      _newcountries = [];
+      _countries = [];
     });
     List<Country> temp = await getCountries();
     setState(() {
-      countries = temp;
-      _newcountries = countries;
+      _allCountries = temp;
+      _countries = _allCountries;
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return countries != null
+    return _allCountries != null
         ? Scaffold(
             backgroundColor: Colors.white,
             appBar: AppBar(
@@ -74,7 +74,7 @@ class _ListCountryViewState extends State<ListCountryView>
                           ),
                           onChanged: (text) {
                             setState(() {
-                              _newcountries = countries
+                              _countries = _allCountries
                                   .where((r) => (r.country
                                       .toLowerCase()
                                       .contains(text.trim().toLowerCase())))
@@ -94,19 +94,19 @@ class _ListCountryViewState extends State<ListCountryView>
                     onRefresh: _getCountries,
                     child: ListView.builder(
                       padding: EdgeInsets.symmetric(horizontal: 16.0),
-                      itemCount: _newcountries.length,
+                      itemCount: _countries.length,
                       itemBuilder: (BuildContext context, int index) {
                         Widget leading = Icon(
                           Icons.public,
                           color: Colors.blue[800],
                           size: 36,
                         );
-                        if (_newcountries[index].countryInfo != null &&
-                            util.url(_newcountries[index].countryInfo.flag) &&
-                            _newcountries[index].country != "World") {
+                        if (_countries[index].countryInfo != null &&
+                            util.url(_countries[index].countryInfo.flag) &&
+                            _countries[index].country != "World") {
                           leading = Image.asset(
                             "assets/" +
-                                _newcountries[index].countryInfo.flag.split(
+                                _countries[index].countryInfo.flag.split(
                                     "https://corona.lmao.ninja/assets/img/flags/")[1],
                             height: 24,
                           );
@@ -116,10 +116,10 @@ class _ListCountryViewState extends State<ListCountryView>
                           color: Colors.grey[50],
                           child: ListTile(
                             onTap: () {
-                              widget.onItemSelected(_newcountries[index]);
+                              widget.onItemSelected(_countries[index]);
                             },
                             leading: leading,
-                            title: Text(_newcountries[index].country),
+                            title: Text(_countries[index].country),
                             trailing: Icon(Icons.keyboard_arrow_right),
                           ),
                         );
